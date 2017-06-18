@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		852C5ECD1EF6C72600C6225C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852C5ECC1EF6C72600C6225C /* Tile.swift */; };
+		852C5ED31EF6EA3B00C6225C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852C5ED21EF6EA3B00C6225C /* Utils.swift */; };
 		852DCD7A1EF446E10032D948 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852DCD791EF446E10032D948 /* AppDelegate.swift */; };
 		852DCD7C1EF446E10032D948 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852DCD7B1EF446E10032D948 /* ViewController.swift */; };
 		852DCD7F1EF446E10032D948 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 852DCD7D1EF446E10032D948 /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		852C5ECC1EF6C72600C6225C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		852C5ED21EF6EA3B00C6225C /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		852DCD761EF446E10032D948 /* TheWordGameUITests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheWordGameUITests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		852DCD791EF446E10032D948 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		852DCD7B1EF446E10032D948 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,10 +103,12 @@
 			children = (
 				852DCD791EF446E10032D948 /* AppDelegate.swift */,
 				852DCD7B1EF446E10032D948 /* ViewController.swift */,
+				852C5ECC1EF6C72600C6225C /* Tile.swift */,
 				852DCD7D1EF446E10032D948 /* Main.storyboard */,
 				852DCD801EF446E10032D948 /* Assets.xcassets */,
 				852DCD821EF446E10032D948 /* LaunchScreen.storyboard */,
 				852DCD851EF446E10032D948 /* Info.plist */,
+				852C5ED21EF6EA3B00C6225C /* Utils.swift */,
 			);
 			path = TheWordGameUITests;
 			sourceTree = "<group>";
@@ -264,6 +270,8 @@
 			files = (
 				852DCD7C1EF446E10032D948 /* ViewController.swift in Sources */,
 				852DCD7A1EF446E10032D948 /* AppDelegate.swift in Sources */,
+				852C5ECD1EF6C72600C6225C /* Tile.swift in Sources */,
+				852C5ED31EF6EA3B00C6225C /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +522,7 @@
 				852DCDA01EF446E10032D948 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		852DCDA11EF446E10032D948 /* Build configuration list for PBXNativeTarget "TheWordGameUITestsTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +531,7 @@
 				852DCDA31EF446E10032D948 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		852DCDA41EF446E10032D948 /* Build configuration list for PBXNativeTarget "TheWordGameUITestsUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +540,7 @@
 				852DCDA61EF446E10032D948 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
