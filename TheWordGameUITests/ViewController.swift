@@ -28,6 +28,9 @@ class ViewController: UIViewController {
     @IBAction func removeLetterButtonPressed(_ sender: Any) {
         removeTile(index: Int(position.text!)!)
     }
+    @IBAction func swapLetterButtonPressed(_ sender: Any) {
+        swapTile(letter: letterSetter.text!, index: Int(position.text!)!)
+    }
     
     // Functions
     func addTile(letter: String){
@@ -48,6 +51,19 @@ class ViewController: UIViewController {
             tileToRemove.removeFromSuperview()
             self.updateWordVisuals()
         }
+    }
+    func swapTile(letter: String, index: Int){
+        let oldTile = currentWord[index]
+        newTile = Tile(letter: letter)
+        newTile.alpha = 0
+        newTile.center = oldTile.center
+        newTile.center.y += 100
+        newTile.transform = oldTile.transform
+        oldTile.removeFromSuperview()
+        currentWordHolderView.addSubview(newTile)
+        currentWord.remove(at: index)
+        currentWord.insert(newTile, at: index)
+        updateWordVisuals()
     }
     func updateWordVisuals(){
         // gets dimension variable
