@@ -95,9 +95,10 @@ class ViewController: UIViewController {
             xPos += Double(4 - currentWord.count)*currentDimension*1.1/2.0
         }
         
-        // set initial center of xPos or Tile when adding
+        // centers a letter thats added by calculating where its center will be
         if moveType == 0{
             newTile.center.x = CGFloat(xPos) + CGFloat(index)*scaledTileHeight*1.1 + CGFloat(currentDimension/2)
+            newTile.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }
         
         UIView.animate(withDuration: 0.7) {
