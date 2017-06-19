@@ -121,6 +121,7 @@ class ViewController: UIViewController {
                 tile.removeIndicator()
                 tile.transform = CGAffineTransform(scaleX: CGFloat(scaleDimension), y: CGFloat(scaleDimension))
                 tile.frame.origin = CGPoint(x: xPos, y: 0)
+                tile.center.y = self.currentWordHolderView.bounds.height/2
                 tile.setTileStyle()
                 xPos += Double(scaledTileHeight) * 1.1
             }
