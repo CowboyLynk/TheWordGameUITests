@@ -12,6 +12,7 @@ import UIKit
 
 class Tile: UIView{
     var letter = ""
+    var subLetterIndicator = UIView()
     let label = UILabel()
     
     func setTileStyle(){
@@ -23,6 +24,15 @@ class Tile: UIView{
         // Tile styling
         self.addSubview(label)
         self.layer.shadowOffset = CGSize(width: 0, height: self.frame.height/12)
+    }
+
+    
+    func subMoveType(){
+        subLetterIndicator = UIView(frame: CGRect(x: 0, y: 85, width: 10, height: 10))
+        subLetterIndicator.layer.cornerRadius = 5
+        subLetterIndicator.center.x = self.bounds.width/2
+        subLetterIndicator.backgroundColor = UIColor(red:0.94, green:0.56, blue:0.23, alpha:1.0)
+        self.addSubview(subLetterIndicator)
     }
     
     init(letter: String){
