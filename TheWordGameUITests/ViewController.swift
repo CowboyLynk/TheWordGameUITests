@@ -27,13 +27,19 @@ class ViewController: UIViewController {
     
     // Actions
     @IBAction func addLetterButtonPused(_ sender: Any) {
-        addTile(letter: letterSetter.text!, index: Int(position.text!)!)
+        if Int(position.text!)! <= currentWord.count{
+            addTile(letter: letterSetter.text!, index: Int(position.text!)!)
+        }
     }
     @IBAction func removeLetterButtonPressed(_ sender: Any) {
-        removeTile(index: Int(position.text!)!)
+        if Int(position.text!)! < currentWord.count{
+             removeTile(index: Int(position.text!)!)
+        }
     }
     @IBAction func swapLetterButtonPressed(_ sender: Any) {
-        swapTile(letter: letterSetter.text!, index: Int(position.text!)!)
+        if Int(position.text!)! < currentWord.count{
+            swapTile(letter: letterSetter.text!, index: Int(position.text!)!)
+        }
     }
     
     // Functions
@@ -144,7 +150,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         screenSize = self.view.bounds
         defaultDimension = Double(0.9*screenSize.width)/(1.1*4.0 - 0.1)
-        self.currentWordHolderView.center = self.view.center
+        //self.currentWordHolderView.center = self.view.center
         
         // Styling for add indicator
         changedLetterIndicator = UIView(frame: CGRect(x: 0, y: 85, width: 40, height: 10))
