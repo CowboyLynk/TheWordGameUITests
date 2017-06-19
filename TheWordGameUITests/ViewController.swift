@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     var screenSize: CGRect!
     var newTile: Tile!
     var currentDimension: Double!
-    let origDimension = 80.0
     var currentWord = [Tile]()
     var defaultDimension: Double!
     var addLetterIndicator = UIView()
@@ -27,7 +26,7 @@ class ViewController: UIViewController {
     
     // Actions
     @IBAction func addLetterButtonPused(_ sender: Any) {
-        addTile(letter: letterSetter.text!)
+        addTile(letter: letterSetter.text!, index: Int(position.text!)!)
     }
     @IBAction func removeLetterButtonPressed(_ sender: Any) {
         removeTile(index: Int(position.text!)!)
@@ -37,21 +36,20 @@ class ViewController: UIViewController {
     }
     
     // Functions
-    func addTile(letter: String){
+    func addTile(letter: String, index: Int){
         // creates a new tile
         moveType = 0
-        newTile = Tile(letter: letter)
-        newTile.alpha = 0
+        newTile = Tile(letter: letter, defaultDimension: defaultDimension)
         newTile.center.x = currentWordHolderView.bounds.width/2
         currentWordHolderView.addSubview(newTile)
-        currentWord.insert(newTile, at: Int(position.text!)!)
-        updateWordVisuals()
+        currentWord.insert(newTile, at: index)
+        updateWordVisuals(index: index)
     }
     func removeTile(index: Int){
         moveType = 1
         let tileToRemove = currentWord[index]
         currentWord.remove(at: index)
-        self.updateWordVisuals()
+        self.updateWordVisuals(index: index)
         
         UIView.animate(withDuration: 0.5, animations: {
             tileToRemove.alpha = 0
@@ -72,16 +70,15 @@ class ViewController: UIViewController {
             oldTile.removeFromSuperview()
         }
         
-        newTile = Tile(letter: letter)
-        newTile.alpha = 0
+        newTile = Tile(letter: letter, defaultDimension: defaultDimension)
         newTile.center = oldTile.center
         newTile.center.y += 150
         newTile.transform = oldTile.transform
         currentWordHolderView.addSubview(newTile)
         currentWord.insert(newTile, at: index)
-        updateWordVisuals()
+        updateWordVisuals(index: index)
     }
-    func updateWordVisuals(){
+    func updateWordVisuals(index: Int){
         currentWordHolderView.bringSubview(toFront: addLetterIndicator)
         // gets dimension variables
         let numTiles = currentWord.count
@@ -89,13 +86,18 @@ class ViewController: UIViewController {
         if currentDimension > defaultDimension || currentDimension < 0 {  // sets max tile size
             currentDimension = defaultDimension
         }
-        let scaleDimension = currentDimension/origDimension
+        let scaleDimension = currentDimension/defaultDimension
         let scaledTileHeight = self.newTile.bounds.height*CGFloat(scaleDimension)
         
         // sets initial xPos to match 5% padding on each side and centers the tiles
         var xPos = Double(screenSize.width * 0.05)
-        if currentWord.count <= 4{
-            xPos += Double(4 - currentWord.count)*defaultDimension*1.1/2.0
+        if currentWord.count < 4{
+            xPos += Double(4 - currentWord.count)*currentDimension*1.1/2.0
+        }
+        
+        // set initial center of xPos or Tile when adding
+        if moveType == 0{
+            newTile.center.x = CGFloat(xPos) + CGFloat(index)*scaledTileHeight*1.1 + CGFloat(currentDimension/2)
         }
         
         UIView.animate(withDuration: 0.7) {
@@ -105,7 +107,7 @@ class ViewController: UIViewController {
                 tile.transform = CGAffineTransform(scaleX: CGFloat(scaleDimension), y: CGFloat(scaleDimension))
                 tile.frame.origin = CGPoint(x: xPos, y: 0)
                 tile.setTileStyle()
-                xPos += self.currentDimension * 1.1
+                xPos += Double(scaledTileHeight) * 1.1
             }
             
             if self.moveType == 0 {
@@ -132,6 +134,9 @@ class ViewController: UIViewController {
         addLetterIndicator.backgroundColor = UIColor(red:0.94, green:0.56, blue:0.23, alpha:1.0)
         addLetterIndicator.alpha = 0
         currentWordHolderView.addSubview(addLetterIndicator)
+        
+        letterSetter.text = "R"
+        position.text = "0"
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

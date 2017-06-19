@@ -35,18 +35,19 @@ class Tile: UIView{
         self.addSubview(subLetterIndicator)
     }
     
-    init(letter: String){
+    init(letter: String, defaultDimension: Double){
         self.letter = letter
         super.init(frame: CGRect())
         
-        self.frame.size = CGSize(width: 80, height: 80)
+        self.frame.size = CGSize(width: defaultDimension, height: defaultDimension)
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.3
         self.layer.shadowRadius = 5
         self.backgroundColor = .white
         self.layer.cornerRadius = 15
+        self.alpha = 0
         
-        label.frame.size = CGSize(width: 80, height: 80)
+        label.frame.size = CGSize(width: defaultDimension, height: defaultDimension)
         label.textColor = .gray
         label.textAlignment = .center
     }
