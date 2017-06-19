@@ -12,7 +12,7 @@ import UIKit
 
 class Tile: UIView{
     var letter = ""
-    var subLetterIndicator = UIView()
+    var changedLetterIndicator = UIView()
     let label = UILabel()
     
     func setTileStyle(){
@@ -27,12 +27,12 @@ class Tile: UIView{
     }
 
     
-    func subMoveType(){
-        subLetterIndicator = UIView(frame: CGRect(x: 0, y: 85, width: 10, height: 10))
-        subLetterIndicator.layer.cornerRadius = 5
-        subLetterIndicator.center.x = self.bounds.width/2
-        subLetterIndicator.backgroundColor = UIColor(red:0.94, green:0.56, blue:0.23, alpha:1.0)
-        self.addSubview(subLetterIndicator)
+    func addIndicator(){
+        changedLetterIndicator.alpha = 1
+    }
+    
+    func removeIndicator(){
+        changedLetterIndicator.alpha = 0
     }
     
     init(letter: String, defaultDimension: Double){
@@ -50,6 +50,12 @@ class Tile: UIView{
         label.frame.size = CGSize(width: defaultDimension, height: defaultDimension)
         label.textColor = .gray
         label.textAlignment = .center
+        
+        changedLetterIndicator.frame = CGRect(origin: CGPoint(x: 0, y: self.bounds.height), size: CGSize(width: 50, height: 10))
+        changedLetterIndicator.alpha = 0
+        changedLetterIndicator.center.x = self.bounds.width/2
+        changedLetterIndicator.backgroundColor = UIColor(red:0.94, green:0.56, blue:0.23, alpha:1.0)
+        self.addSubview(changedLetterIndicator)
     }
     
     required init?(coder aDecoder: NSCoder) {
