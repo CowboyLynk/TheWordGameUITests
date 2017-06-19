@@ -12,12 +12,12 @@ class ViewController: UIViewController {
     
     // Variables
     var screenSize: CGRect!
-    var newTile: Tile!
-    var currentDimension: Double!
-    var currentWord = [Tile]()
-    var defaultDimension: Double!
-    var addLetterIndicator = UIView()
+    var currentDimension: Double! // is the scalled dimesion when more than 4 tiles are on screen
+    var defaultDimension: Double! // this dimension perfectly fits 4 tiles on a screen without scalling
+    var newTile: Tile!  // is the tile that was added most recently
+    var currentWord = [Tile]()  // Array of all tiles (letters) on the screen
     var moveType: Int!  // 0: add, 1: remove, 2: sub, 3: rearrange
+    var addLetterIndicator = UIView() //
     
     // Outlets
     @IBOutlet weak var letterSetter: UITextField!
@@ -40,17 +40,17 @@ class ViewController: UIViewController {
         // creates a new tile
         moveType = 0
         newTile = Tile(letter: letter, defaultDimension: defaultDimension)
-        newTile.center.x = currentWordHolderView.bounds.width/2
         currentWordHolderView.addSubview(newTile)
         currentWord.insert(newTile, at: index)
-        updateWordVisuals(index: index)
+        updateWordVisuals(index: index)  // centers all the other letters and adjusts their size
     }
     func removeTile(index: Int){
         moveType = 1
         let tileToRemove = currentWord[index]
         currentWord.remove(at: index)
-        self.updateWordVisuals(index: index)
+        self.updateWordVisuals(index: index)  // centers all the other letters and adjusts their size
         
+        // Fades out the tile to remove
         UIView.animate(withDuration: 0.5, animations: {
             tileToRemove.alpha = 0
             tileToRemove.center.y += 100
@@ -86,8 +86,8 @@ class ViewController: UIViewController {
         if currentDimension > defaultDimension || currentDimension < 0 {  // sets max tile size
             currentDimension = defaultDimension
         }
-        let scaleDimension = currentDimension/defaultDimension
-        let scaledTileHeight = self.newTile.bounds.height*CGFloat(scaleDimension)
+        let scaleDimension = currentDimension/defaultDimension  // is a decimal value e.g. 0.8
+        let scaledTileHeight = self.newTile.bounds.height*CGFloat(scaleDimension) // represents the new height after the original is scaled
         
         // sets initial xPos to match 5% padding on each side and centers the tiles
         var xPos = Double(screenSize.width * 0.05)
@@ -111,6 +111,7 @@ class ViewController: UIViewController {
                 xPos += Double(scaledTileHeight) * 1.1
             }
             
+            // Adds the addLetterIndicator
             if self.moveType == 0 {
                 self.addLetterIndicator.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 50*scaleDimension, height: 10*scaleDimension))
                 self.addLetterIndicator.alpha = 1
@@ -136,6 +137,7 @@ class ViewController: UIViewController {
         addLetterIndicator.alpha = 0
         currentWordHolderView.addSubview(addLetterIndicator)
         
+        // Because its annoying to type in values each time when testing
         letterSetter.text = "R"
         position.text = "0"
         
