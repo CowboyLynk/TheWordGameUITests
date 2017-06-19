@@ -37,6 +37,7 @@ class ViewController: UIViewController {
         // creates a new tile
         newTile = Tile(letter: letter)
         newTile.alpha = 0
+        newTile.center.x = currentWordHolderView.bounds.width/2
         currentWordHolderView.addSubview(newTile)
         currentWord.insert(newTile, at: Int(position.text!)!)
         updateWordVisuals()
@@ -44,12 +45,13 @@ class ViewController: UIViewController {
     func removeTile(index: Int){
         let tileToRemove = currentWord[index]
         currentWord.remove(at: index)
+        self.updateWordVisuals()
         
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             tileToRemove.alpha = 0
+            tileToRemove.center.y = self.currentWordHolderView.bounds.height/2
         }) { (sucsess:Bool) in
             tileToRemove.removeFromSuperview()
-            self.updateWordVisuals()
         }
     }
     func swapTile(letter: String, index: Int){
@@ -73,10 +75,10 @@ class ViewController: UIViewController {
             dimension = 80.0
         }
         
-        // center the tiles
+        // sets initial xPos to match 5% padding on each side
         var xPos = Double(screenSize.width * 0.05)
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.7) {
             self.newTile.alpha = 1
             for index in 0..<self.currentWord.count{
                 let tile = self.currentWord[index]
