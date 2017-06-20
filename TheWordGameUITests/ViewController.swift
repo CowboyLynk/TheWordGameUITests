@@ -16,9 +16,10 @@ class ViewController: UIViewController {
     var defaultDimension: Double! // this dimension perfectly fits 4 tiles on a screen without scalling
     var newTile: Tile!  // is the tile that was added most recently
     var currentWord = [Tile]()  // Array of all tiles (letters) on the screen
-    var moveType: Int!  // 0: add, 1: remove, 2: sub, 3: rearrange
-    var previousMoveType = 1
-    var changedLetterIndicator = UIView() //
+    var moveType = 4  // 0: add, 1: remove, 2: sub, 3: rearrange, 4: default
+    var previousMoveType = 4 // ^
+    var changedLetterIndicator = UIView() // used to indicate which letter was changed
+    var previousWord = "CAT"
     
     // Outlets
     @IBOutlet weak var letterSetter: UITextField!
@@ -26,6 +27,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var position: UITextField!
     
     // Actions
+    @IBAction func submitButtonTapped(_ sender: Any) {
+        getLetterToChange()
+    }
     @IBAction func addLetterButtonPused(_ sender: Any) {
         if Int(position.text!)! <= currentWord.count{
             addTile(letter: letterSetter.text!, index: Int(position.text!)!)
@@ -43,6 +47,9 @@ class ViewController: UIViewController {
     }
     
     // Functions
+    func getLetterToChange(){
+        
+    }
     func addTile(letter: String, index: Int){
         // creates a new tile
         moveType = 0
@@ -126,12 +133,13 @@ class ViewController: UIViewController {
                 xPos += Double(scaledTileHeight) * 1.1
             }
             
-            self.newTile.addIndicator()
-            
-            // Adds the slide changedLetterIndicator
             if self.moveType == 0 || self.moveType == 2 {
+                // Normal changedLetterIndicator
+                self.newTile.addIndicator()
+                
+                // Adds the slide changedLetterIndicator
                 self.changedLetterIndicator.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 50*scaleDimension, height: 10*scaleDimension))
-                self.changedLetterIndicator.alpha = 0 // SET TO 1 TO ENABLE THE SLIDE ADD EFFECT
+                self.changedLetterIndicator.alpha = 0 // SET TO 1 TO ENABLE THE SLIDE ADD EFFECT AND COMMENT OUT "Normal ChangedLetterIndicator"
                 self.changedLetterIndicator.center.x = self.newTile.center.x
                 let yCenter = self.newTile.center.y + scaledTileHeight/CGFloat(2) + self.changedLetterIndicator.bounds.height
                 self.changedLetterIndicator.center.y = yCenter
@@ -165,6 +173,17 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // Adds the starting word
+        for index in 0..<previousWord.characters.count{
+            let charIndex = previousWord.index(previousWord.startIndex, offsetBy: index)
+            newTile = Tile(letter: String(previousWord[charIndex]), defaultDimension: defaultDimension)
+            currentWordHolderView.addSubview(newTile)
+            currentWord.insert(newTile, at: index)
+            updateWordVisuals(index: index)
+            newTile.removeIndicator()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
